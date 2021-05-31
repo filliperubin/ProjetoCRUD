@@ -5,6 +5,8 @@
  */
 package Janelas;
 
+import BD.Conexao;
+
 /**
  *
  * @author Fillipe
@@ -68,22 +70,24 @@ public class CadastroProduto extends javax.swing.JFrame {
         jLabel3.setText("Quantidade");
 
         jTQuantidade.setFont(new java.awt.Font("Calibri Light", 1, 14)); // NOI18N
-        jTQuantidade.setText("jTextField1");
 
         jTDescricao.setFont(new java.awt.Font("Calibri Light", 1, 14)); // NOI18N
-        jTDescricao.setText("jTextField2");
 
         jLabel4.setFont(new java.awt.Font("Calibri Light", 1, 14)); // NOI18N
         jLabel4.setText("Valor");
 
         jTValor.setFont(new java.awt.Font("Calibri Light", 1, 14)); // NOI18N
-        jTValor.setText("jTextField3");
 
         jBRemover.setText("Remover");
 
         jBAlterar.setText("Alterar");
 
         jBCadastrar.setText("Cadastrar");
+        jBCadastrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBCadastrarActionPerformed(evt);
+            }
+        });
 
         jTProdutos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -158,6 +162,10 @@ public class CadastroProduto extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jBCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCadastrarActionPerformed
+        Conexao.getConnection();
+    }//GEN-LAST:event_jBCadastrarActionPerformed
 
     /**
      * @param args the command line arguments
