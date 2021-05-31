@@ -164,7 +164,7 @@ public class CadastroProduto extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCadastrarActionPerformed
-        Conexao.getConnection();
+        
     }//GEN-LAST:event_jBCadastrarActionPerformed
 
     /**
