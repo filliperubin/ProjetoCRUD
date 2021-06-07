@@ -5,6 +5,7 @@
  */
 package Model;
 
+import DAO.ProdutoDAO;
 import Objetos.Produto;
 import java.util.ArrayList;
 import java.util.List;
@@ -79,6 +80,21 @@ public class ProdutoTableModel extends AbstractTableModel {
         return dados.get(linha);
     }
     
+    private void lerDados(){
+        ProdutoDAO pdao = new ProdutoDAO();
+        
+        for(Produto p : pdao.read()){
+            this.addLinha(p);
+        }
+        this.fireTableDataChanged();
+    }
+    
+    public void recarregaTabela(){
+        this.dados.clear();
+        lerDados();
+        this.fireTableDataChanged();
+    }
+    
+    
 }
     
-

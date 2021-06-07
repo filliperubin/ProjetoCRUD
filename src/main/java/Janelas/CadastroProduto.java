@@ -5,6 +5,7 @@
  */
 package Janelas;
 
+import DAO.ProdutoDAO;
 import Model.ProdutoTableModel;
 import Objetos.Produto;
 import javax.swing.JOptionPane;
@@ -23,6 +24,7 @@ public class CadastroProduto extends javax.swing.JFrame {
     public CadastroProduto() {
         initComponents();
         jTProdutos.setModel(modelo);
+        modelo.recarregaTabela();
     }
 
     /**
@@ -184,13 +186,15 @@ public class CadastroProduto extends javax.swing.JFrame {
 
     private void jBCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCadastrarActionPerformed
         Produto p = new Produto();
+        ProdutoDAO dao = new ProdutoDAO();
 
         try {
             if (jTQuantidade.getText().matches("^[0-9]+$") && jTValor.getText().matches("^[0-9]+$")) {
                 p.setDescricao(jTDescricao.getText());
                 p.setQuantidade(Integer.parseInt(jTQuantidade.getText()));
                 p.setValor(Double.parseDouble(jTValor.getText()));
-                modelo.addLinha(p);
+                dao.create(p);
+                modelo.recarregaTabela();
                 limpaCampos();
             } else {
                 if (!(jTQuantidade.getText().matches("^[0-9]+$"))) {
