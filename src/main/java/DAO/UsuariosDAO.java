@@ -6,7 +6,7 @@
 package DAO;
 
 import BD.Conexao;
-import Objetos.Produto;
+import Objetos.Usuarios;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,44 +19,44 @@ import javax.swing.JOptionPane;
  *
  * @author Fillipe
  */
-public class ProdutoDAO {
-
-    public List<Produto> read() {
+public class UsuariosDAO {
+ 
+    public List<Usuarios> read() {
         Connection con = Conexao.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        List<Produto> produtos = new ArrayList<>();
+        List<Usuarios> usuarios = new ArrayList<>();
 
         try {
-            stmt = con.prepareStatement("SELECT * FROM tbl_produto");
+            stmt = con.prepareStatement("SELECT * FROM tbl_usuarios");
             rs = stmt.executeQuery();
 
             while (rs.next()) {
-                Produto p = new Produto();
-                p.setId(rs.getInt("id"));
-                p.setDescricao(rs.getString("descricao"));
-                p.setValor(rs.getDouble("valor"));
-                p.setQuantidade(rs.getInt("quantidade"));
-                produtos.add(p);
+                Usuarios u = new Usuarios();
+                u.setId(rs.getInt("id"));
+                u.setNome(rs.getString("nome"));
+                u.setLogin(rs.getString("login"));
+                u.setSenha(rs.getString("senha"));
+                usuarios.add(u);
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Falha ao obter dados " + e);
         } finally {
             Conexao.closeConnection(con, stmt, rs);
         }
-        return produtos;
+        return usuarios;
     }
-
-    public void create(Produto p) {
+    
+    public void create(Usuarios u) {
         Connection con = Conexao.getConnection();
         PreparedStatement stmt = null;
 
         try {
             stmt = con.prepareStatement(
-                    "INSERT INTO tbl_produto (descricao, valor, quantidade) VALUES (?, ?, ?)");
-            stmt.setString(1, p.getDescricao());
-            stmt.setDouble(2, p.getValor());
-            stmt.setInt(3, p.getQuantidade());
+                    "INSERT INTO tbl_usuarios (nome, login, senha) VALUES (?, ?, ?)");
+            stmt.setString(1, u.getNome());
+            stmt.setString(2, u.getLogin());
+            stmt.setString(3, u.getSenha());
 
             stmt.execute();
             JOptionPane.showMessageDialog(null, "Cadastrado com Sucesso!");
@@ -68,17 +68,17 @@ public class ProdutoDAO {
         }
     }
     
-    public void update(Produto p){
+    public void update(Usuarios u){
         Connection con = Conexao.getConnection();
         PreparedStatement stmt = null;
         
         try {
             stmt = con.prepareStatement(
-    "UPDATE tbl_produto SET descricao = ?, quantidade = ?, valor = ? WHERE id = ?");
-            stmt.setString(1, p.getDescricao());
-            stmt.setInt(2, p.getQuantidade());
-            stmt.setDouble(3, p.getValor());            
-            stmt.setInt(4, p.getId());
+    "UPDATE tbl_usuarios SET nome = ?, login = ?, senha = ? WHERE id = ?");
+            stmt.setString(1, u.getNome());
+            stmt.setString(2, u.getLogin());
+            stmt.setString(3, u.getSenha());            
+            stmt.setInt(4, u.getId());
 
             stmt.execute();
             JOptionPane.showMessageDialog(null, "Atualizado com Sucesso!");
@@ -90,14 +90,14 @@ public class ProdutoDAO {
         }
     }
     
-    public void remover(Produto p){
+    public void remover(Usuarios u){
         Connection con = Conexao.getConnection();
         PreparedStatement stmt = null;
         
         try {
             stmt = con.prepareStatement(
-                 "DELETE FROM tbl_produto WHERE id = ?");                              
-            stmt.setInt(1, p.getId());
+                 "DELETE FROM tbl_usuarios WHERE id = ?");                              
+            stmt.setInt(1, u.getId());
 
             stmt.execute();
             JOptionPane.showMessageDialog(null, "Removido com Sucesso!");
@@ -107,7 +107,4 @@ public class ProdutoDAO {
             Conexao.closeConnection(con, stmt);
         }
     }
-    
-    
-
 }
